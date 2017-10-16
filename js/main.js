@@ -1,9 +1,4 @@
 var game = new Phaser.Game(720,400, Phaser.Auto,'flappy');
-// game.state.add('bootstate',bootstate);
-// game.state.add('GameState',GameState);
-//
-// game.state.start('bootstate');
-
 var GameState = {
       //This preload function is to load everything
       //That we need to the project.
@@ -22,7 +17,7 @@ var GameState = {
   },
   create: function(){
       game.physics.startSystem(Phaser.Physics.ARCADE);
-        //Add background from the preload background
+      //Add background from the preload background
       this.background = this.game.add.sprite(0,0,'background');
       // Add the wafty-icon
       this.wafty = this.game.add.sprite(50,205,'wafty');
@@ -47,12 +42,14 @@ var GameState = {
   update: function(){
       //If the object is out of the screen(). Call restartGame
       if(this.wafty.y<0 || this.wafty.y>405) this.restartGame();
+      //Check if the wafty hit the pipes, there's  builtin function call overlap
+      //I use overlap to check for it
       game.physics.arcade.overlap(this.wafty,this.pipes,this.restartGame,null,this);
       if(this.wafty.angle<20)
         this.wafty.angle+=1;
   },
   jump: function(){
-    //When SPACEBAR is pressed or clicked, this wafty will jump
+      //When SPACEBAR is pressed or click on screen, this wafty will jump
       this.wafty.body.velocity.y = -200; //This adjust how high th wafty could jump
       //Create animation for the wafty
       var animation = game.add.tween(this.wafty);
@@ -63,8 +60,8 @@ var GameState = {
       this.jumpSound.play();
   },
   restartGame: function(){
-      this.state.start('GameState');
-      
+      this.state.start('bootstate');
+
   },
 
   addOnePipe: function(x, y) {
@@ -98,4 +95,5 @@ var GameState = {
 
 };
 game.state.add('GameState',GameState);
-game.state.start('GameState');
+game.state.add('bootstate',bootstate)
+game.state.start('bootstate');
