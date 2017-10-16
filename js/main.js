@@ -1,4 +1,8 @@
 var game = new Phaser.Game(720,400, Phaser.Auto,'flappy');
+// game.state.add('bootstate',bootstate);
+// game.state.add('GameState',GameState);
+//
+// game.state.start('bootstate');
 
 var GameState = {
       //This preload function is to load everything
@@ -39,7 +43,6 @@ var GameState = {
       this.playerScore = game.add.text(20,20,'0',style); //Initial player score
       //Add sound when the wafty jump
       this.jumpSound = game.add.audio('swoosh');
-
   },
   update: function(){
       //If the object is out of the screen(). Call restartGame
@@ -47,9 +50,7 @@ var GameState = {
       game.physics.arcade.overlap(this.wafty,this.pipes,this.restartGame,null,this);
       if(this.wafty.angle<20)
         this.wafty.angle+=1;
-
   },
-
   jump: function(){
     //When SPACEBAR is pressed or clicked, this wafty will jump
       this.wafty.body.velocity.y = -200; //This adjust how high th wafty could jump
@@ -63,7 +64,9 @@ var GameState = {
   },
   restartGame: function(){
       this.state.start('GameState');
+      
   },
+
   addOnePipe: function(x, y) {
       // Create a pipe at the position x and y
       var pipe = game.add.sprite(x, y, 'pipe');
@@ -73,15 +76,10 @@ var GameState = {
       game.physics.arcade.enable(pipe);
       // Add velocity to the pipe to make it move left
       pipe.body.velocity.x = -150;//This adjust how fast the pipe would move
-
       // Automatically kill the pipe when it's no longer visible
       pipe.checkWorldBounds = true
       pipe.outOfBoundsKill = true;
-
-
-
   },
-
   addRowOfPipes: function() {
       // Randomly pick a number between 1 and 5
       // This will be the hole position
@@ -96,8 +94,6 @@ var GameState = {
       //Add score
       this.score += 1;
       this.playerScore.text = this.score - 2 < 0 ? 0: this.score - 2;
-
-
   },
 
 };
