@@ -1,7 +1,5 @@
 var game = new Phaser.Game(720,400, Phaser.Auto,'flappy');
 var GameState = {
-      //This preload function is to load everything
-      //That we need to the project.
   preload: function() {
       // Preload the image from source
       //This will preload the background
@@ -86,7 +84,7 @@ var GameState = {
           if (i != holeofhope && i != holeofhope + 1 && i!=holeofhope+2)
           //700 is the postition where the pipe appear.
           //Also knows as the width of the screen, where you want to place pipe
-          //i * 50, is the position of the height, where the box should be place.
+          //i * 40, is the position of the height, where the box should be place.
           this.addOnePipe(700, i * 40 );
       //Add score
       this.score += 1;
